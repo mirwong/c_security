@@ -128,8 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -151,4 +149,3 @@ dmypy.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
