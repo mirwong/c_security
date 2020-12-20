@@ -4,23 +4,27 @@ import random
 import itertools
 
 def create_hash(text):
-    hash = hashlib.sha256()
-    hash.update(text.encode())
-    return hash.digest()
+    orig_hash = hashlib.sha256()
+    orig_hash.update(text.encode())
+    return orig_hash.digest()
 
-def break_hash(hash, text_len):
+def break_hash(orig_hash, text_len):
     alphabet = [char for char in 'abcdefghijklmnopqrstuvwxyz']
     combos = list(itertools.combinations(alphabet, text_len))
     options = [''.join(combo) for combo in combos]
+    broken = False
+    start = time.perf_counter()
     for option in options:
-        start = time.perf_counter()
+        # start = time.perf_counter()
         test_hash = hashlib.sha256()
         test_hash.update(option.encode())
-        if test_hash.digest() == hash:
+        if test_hash.digest() == orig_hash:
             length = time.perf_counter() - start
-            return [True, length]
-    length = time.perf_counter() - start
-    return [False, length]
+            broken = True 
+            break
+    if broken == False:
+        length = time.perf_counter() - start
+    return [broken, length]
 
 def time_break(strings, text_len, tests=-1):
     times = []
